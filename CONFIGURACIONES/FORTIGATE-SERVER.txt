@@ -1,0 +1,121 @@
+FORTIGATE - FORTI-SERVER
+Infraestructura 3
+TSI-203 Seguridad de Redes
+
+Estudiante: Jennifer López
+Matrícula: 20240860
+
+========================================
+INTERFACES
+========================================
+
+port1 - WAN
+IP: 200.20.86.2/30
+Estado: UP
+
+port2 - SERVER
+IP: 10.86.1.1/28
+Estado: UP
+
+Red USER remota:
+10.86.0.0/25
+
+R-USER:
+200.20.86.1
+
+WEB-SERVER:
+10.86.1.2/28
+
+========================================
+ENRUTAMIENTO
+========================================
+
+Red destino:
+10.86.0.0/25
+
+Next-Hop:
+200.20.86.1
+
+Interfaz:
+port1
+
+========================================
+ACCESO HTTPS
+========================================
+
+El diseño contempla la publicación del servicio
+HTTPS del WEB-SERVER mediante el FortiGate.
+
+Servicio:
+HTTPS - TCP/443
+
+Servidor:
+10.86.1.2
+
+El acceso web se diseñó para funcionar sin
+necesidad de establecer la VPN.
+
+========================================
+ACCESO SSH
+========================================
+
+Servicio:
+SSH - TCP/22
+
+Servidor:
+10.86.1.2
+
+SSH no se expone directamente hacia la WAN.
+El acceso administrativo está destinado a
+realizarse mediante la VPN Remote-Site.
+
+========================================
+VPN REMOTE-SITE
+========================================
+
+El FortiGate funciona como punto de terminación
+de la VPN de acceso remoto.
+
+El diseño permite que los clientes autenticados
+mediante VPN puedan alcanzar la red SERVER y
+acceder al WEB-SERVER mediante SSH.
+
+========================================
+VALIDACIONES
+========================================
+
+Se verificó:
+
+- port1 en estado UP.
+- port2 en estado UP.
+- Conectividad WAN con R-USER.
+- Conectividad entre FortiGate y WEB-SERVER.
+- Ping bidireccional en la red 10.86.1.0/28.
+
+========================================
+TROUBLESHOOTING
+========================================
+
+Durante las pruebas de administración del
+FortiGate se verificó conectividad ICMP y TCP.
+
+El acceso HTTPS administrativo presentó
+reinicios durante la negociación TLS.
+
+También se revisaron:
+
+- allowaccess HTTPS
+- Puerto administrativo
+- Servicio httpsd
+- Interfaz de administración
+- Memoria RAM de la VM
+- Conectividad Host-only
+
+Se utilizó port3 temporalmente para las pruebas
+de administración:
+
+FortiGate port3:
+192.168.46.2/24
+
+Windows VMnet1:
+192.168.46.1/24
