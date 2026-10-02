@@ -1,0 +1,74 @@
+ROUTER CISCO - R-USER
+Infraestructura 3
+TSI-203 Seguridad de Redes
+
+Estudiante: Jennifer López
+Matrícula: 20240860
+
+========================================
+WAN
+========================================
+
+Interface FastEthernet0/0
+IP: 200.20.86.1/30
+
+========================================
+VLAN 10 - USERS
+========================================
+
+Red:
+10.86.0.0/25
+
+Gateway:
+10.86.0.1
+
+Subinterfaz:
+FastEthernet1/0.10
+
+Encapsulación:
+802.1Q VLAN 10
+
+========================================
+CONFIGURACIÓN
+========================================
+
+interface FastEthernet0/0
+ ip address 200.20.86.1 255.255.255.252
+ no shutdown
+
+interface FastEthernet1/0
+ no ip address
+ no shutdown
+
+interface FastEthernet1/0.10
+ encapsulation dot1Q 10
+ ip address 10.86.0.1 255.255.255.128
+
+========================================
+DHCP
+========================================
+
+ip dhcp excluded-address 10.86.0.1 10.86.0.9
+
+ip dhcp pool VLAN10-USERS
+ network 10.86.0.0 255.255.255.128
+ default-router 10.86.0.1
+ dns-server 8.8.8.8
+
+========================================
+VALIDACIÓN
+========================================
+
+PC1-USER recibió mediante DHCP:
+
+IP: 10.86.0.10/25
+Gateway: 10.86.0.1
+DNS: 8.8.8.8
+DHCP Server: 10.86.0.1
+
+Las interfaces WAN y VLAN 10 fueron verificadas
+en estado up/up.
+
+También se comprobó conectividad WAN entre
+R-USER y el FortiGate mediante ping hacia
+200.20.86.2.
